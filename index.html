@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Allenfest — open-air punk/metal/hardcore fest</title>
+<meta name="description" content="Allenfest — punk, metal, hardcore, grind open-air. Kapely, pivo, vstupné dobrovolné.">
+
+<!--
+  ============================================================
+  ALLENFEST — static single-page site
+  ------------------------------------------------------------
+  This file replaces the WordPress export. It is plain HTML/CSS,
+  no build step, no plugins, no database. To update the page:
+
+  1. Find the section you want to change using the big comment
+     headers below (search for "SECTION:").
+  2. Swap image files in the /images folder, keeping the same
+     filenames — or change the "src" path if you rename files.
+  3. Edit text directly between the HTML tags.
+  4. Re-upload index.html + the /images folder to your host
+     (drag-and-drop works on Netlify/Cloudflare Pages/GitHub Pages).
+
+  Folder structure expected next to this file:
+    /images/poster.jpg            <- main event poster/banner
+    /images/band-1.jpg ... band-8 <- one photo per band
+    /images/beer.jpg              <- beer section photo
+    /images/gallery-1.jpg ...     <- optional past-event photos
+  ============================================================
+-->
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS
+     Photocopied punk-flyer look: near-black background, off-white
+     "paper" cards, red stamp-ink accent, yellow hazard-tape accent.
+     ============================================================ */
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --ink-black: #0c0c0c;
+    --paper: #ede7d9;
+    --paper-dim: #d9d2c0;
+    --red: #d21f27;
+    --yellow: #f0c33c;
+    --text-light: #f4f0e6;
+    --text-muted: #9a9488;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ink-black);
+    color: var(--text-light);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.4em 0;
+    line-height: 1.05;
+  }
+
+  h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); }
+  h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
+  h3 { font-size: 1.2rem; }
+
+  a { color: var(--red); }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Hazard-tape divider: repeating diagonal stripes, used once
+     as the page's signature structural element. */
+  .hazard-divider {
+    height: 28px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--yellow),
+      var(--yellow) 20px,
+      var(--ink-black) 20px,
+      var(--ink-black) 40px
+    );
+  }
+
+  /* ---------- SECTION: POSTER / BANNER ---------- */
+  .poster {
+    width: 100%;
+    display: block;
+  }
+  .poster img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tagline {
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- SECTION: BANDS ---------- */
+  .bands {
+    padding: 60px 0 70px;
+  }
+  .bands h2 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .band-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+  }
+  .band-card {
+    background: var(--paper);
+    color: var(--ink-black);
+    padding: 14px 14px 18px;
+    text-align: center;
+    /* slight alternating tilt = torn-flyer-pinned-to-wall feel */
+  }
+  .band-card:nth-child(odd)  { transform: rotate(-1.4deg); }
+  .band-card:nth-child(even) { transform: rotate(1.4deg); }
+  .band-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 12px;
+    filter: contrast(1.15);
+  }
+  .band-name {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.15rem;
+    margin: 0 0 2px;
+  }
+  .band-meta {
+    font-size: 0.85rem;
+    color: #4a463d;
+    margin: 0;
+  }
+
+  /* ---------- SECTION: FEATURES (the joke selling points) ---------- */
+  .features {
+    padding: 60px 0;
+    border-top: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    text-align: center;
+  }
+  .feature-grid img { width: 44px; height: 44px; margin-bottom: 14px; }
+  .feature-grid p { color: var(--text-muted); font-size: 0.9rem; }
+
+  /* ---------- SECTION: GALLERY ---------- */
+  .gallery { padding: 60px 0; }
+  .gallery h2 { text-align: center; margin-bottom: 30px; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .gallery-grid img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ---------- SECTION: VIDEO ---------- */
+  .video { padding: 20px 0 60px; }
+  .video-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+  }
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ---------- SECTION: BEER + ENTRY ---------- */
+  .info-block {
+    padding: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .info-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .info-block.reverse { direction: rtl; }
+  .info-block.reverse > * { direction: ltr; }
+  @media (max-width: 700px) {
+    .info-block { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- SECTION: FOOTER ---------- */
+  footer {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SECTION: POSTER / BANNER
+     This is the big image at the very top of the page — swap
+     /images/poster.jpg for next year's poster. Keep it roughly
+     the same aspect ratio (wide, e.g. 2560x1810) for best results.
+     ============================================================ -->
+<div class="poster">
+  <img src="images/plakat2026_1.png" alt="Allenfest — event poster">
+</div>
+
+<p class="tagline">Punk, Metal, Hardcore, Grind, když to řve, patří to sem.</p>
+
+<div class="hazard-divider"></div>
+
+<!-- ============================================================
+     SECTION: BANDS
+     One .band-card per band. To add/remove a band, copy or delete
+     a whole <div class="band-card">...</div> block. Photo should
+     be roughly square for best results (e.g. 500x500).
+     ============================================================ -->
+<section class="bands wrap">
+  <h2>Kapely</h2>
+  <div class="band-grid">
+
+    <div class="band-card">
+      <img src="images/za.png" alt="Zrůdný Allen">
+      <p class="band-name">Zrůdný Allen</p>
+      <p class="band-meta">terror punk / Ledeč nad Sázavou</p>
+      <p class="band-time">15:00</p>
+    </div>
+
+    <div class="band-card">
+      <img src="images/legalizace_music.jpg" alt="Legalizace Music">
+      <p class="band-name">Legalizace Music</p>
+      <p class="band-meta">crossover-hardcore / Obrataň</p>
+      <p class="band-time">16:20</p>
+    </div>
+
+    <div class="band-card">
+      <img src="images/kanarci.jpg" alt="Kanárci">
+      <p class="band-name">Kanárci</p>
+      <p class="band-meta">punk-rock'n roll / Ledeč nad Sázavou</p>
+      <p class="band-time">17:40</p>
+    </div>
+
+    <div class="band-card">
+      <img src="images/system_shutdown.png" alt="">
+      <p class="band-name">System Shutdown</p>
+      <p class="band-meta">punk / Tábor</p>
+      <p class="band-time">19:00</p>
+    </div>
+
+    <div class="band-card">
+      <img src="images/prasklep.jpg" alt="Prasklep">
+      <p class="band-name">Prasklep</p>
+      <p class="band-meta">ethno-punk / Handr Graunt</p>
+      <p class="band-time">20:20</p>
+    </div>
+
+    <div class="band-card">
+      <img src="images/galanti.jpg" alt="Galanti">
+      <p class="band-name">Galanti</p>
+      <p class="band-meta">punk</p>
+      <p class="band-time">21:40</p>
+    </div>
+
+    <div class="band-card">
+      <img src="images/sabatage.jpg" alt="Sabatage">
+      <p class="band-name">Sabatage</p>
+      <p class="band-meta"></p>
+      <p class="band-time">23:00</p>
+    </div>
+
+
+    <!-- To add a new band, copy this block and fill it in:
+    <div class="band-card">
+      <img src="images/band-9.jpg" alt="Band Name">
+      <p class="band-name">Band Name</p>
+      <p class="band-meta">genre / town</p>
+    </div>
+    -->
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: FEATURES
+     The three tongue-in-cheek "selling points". Icons are small
+     SVGs in /images — swap freely, or just edit the text.
+     ============================================================ -->
+<section class="features wrap">
+  <div class="feature-grid">
+    <div>
+      <img src="images/icon-health.svg" alt="">
+      <h3>Stoprocentně zdravotně nezávadné</h3>
+      <p>S výjimkou náhodných zažívacích obtíží a nervových záchvatů.</p>
+    </div>
+    <div>
+      <img src="images/icon-sound.svg" alt="">
+      <h3>Vysoká kvalita zvuku</h3>
+      <p>Ale raději si vemte špunty do uší a dobrý vkus odložte před vstupem.</p>
+    </div>
+    <div>
+      <img src="images/icon-service.svg" alt="">
+      <h3>Blesková obsluha</h3>
+      <p>Pokud nezačne pěnit pivo a obsluha nedostane epileptický záchvat.</p>
+    </div>
+  </div>
+</section>
+
+<div class="hazard-divider"></div>
+
+<!-- ============================================================
+     SECTION: GALLERY
+     The old page used a broken NextGEN Gallery shortcode here —
+     it never actually rendered. This is a plain image grid
+     instead. Add or remove <img> tags freely.
+     ============================================================ -->
+<section class="gallery wrap">
+  <h2>Fotky z minulých ročníků</h2>
+  <div class="gallery-grid">
+    <img src="images/gallery-1.jpg" alt="">
+    <img src="images/gallery-2.jpg" alt="">
+    <img src="images/gallery-3.jpg" alt="">
+    <img src="images/gallery-4.jpg" alt="">
+    <!-- add more <img src="images/gallery-N.jpg" alt=""> as needed -->
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: VIDEO
+     Recap video embed. To change it, swap the YouTube video ID
+     in the src URL below (the part after "embed/").
+     ============================================================ -->
+<section class="video wrap">
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/vuWF5Lr3cw8"
+      title="Zrůdný Allen - Allenfest recap"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: BEER
+     ============================================================ -->
+<section class="info-block wrap">
+  <div>
+    <h2>Pivo</h2>
+    <p>Rebel Hořká 11° a výběr nealko limonád a žbrďol.<br>
+       Další občerstvení bude k dispozici.</p>
+    <p>K večeru se zapaluje ohýnek, tak klidně přibalte buřty pro trochu
+       podzimní romantiky za zvuků řízného panku.</p>
+  </div>
+  <div>
+    <img src="images/pivo.jpg" alt="Pivo">
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: ENTRY / VSTUPNÉ
+     ============================================================ -->
+<section class="info-block reverse wrap">
+  <div>
+    <h2>Vstupné</h2>
+    <p>Vstupné je dobrovolné, nicméně na místě je možnost přispět
+       větší finanční částkou na mentálně postižené (pořádající).</p>
+  </div>
+  <div>
+    <!-- Optional second image for this section, or delete this div
+         and remove "info-block.reverse" grid if you'd rather have
+         a single-column text block. -->
+    <img src="images/vstupne.jpg" alt="">
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: DOPRAVA
+     ============================================================ -->
+<section class="info-block wrap">
+  <div>
+    <h2>Doprava</h2>
+    <p>Kudy k nám?
+
+Sjeď z D1 na Exitu66 (Poznáš ho snadno, je tam Mekáč, KFC, Burger King a Bagetérie Bulvár).
+
+Projeď kolem Fástfůdů a za kopcem jsou Alberovice. Za prvním domem to zalom z hlavní doprava, objeď barák a už uvidíš pódium.
+
+Ale radši : OTOČ SE NA NÁVSI!
+
+Parkovat lze podél příjezdové cesty, v případě naplnění kapacity potom na návsi.
+Nemáte-li vůz ani motorku, do blízkého Lokte jezdí autobusy z Prahy, na festival je to 2,2km/~35 min. pěšky.</p>
+<p>
+<a href=https://idos.cz/vlakyautobusymhdvse/spojeni/vysledky/?date=05.09.2026&time=10:00&f=Praha&fc=1&t=Loket,Alberovice;%20Bene%C5%A1ov&tc=2&af=true&malf=false>Jízdní řád - IDOS</a>
+</p>
+  </div>
+  <div>
+    <!-- Optional second image for this section, or delete this div
+         and remove "info-block.reverse" grid if you'd rather have
+         a single-column text block. -->
+    <img src="images/entry.jpg" alt="">
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: HISTORIE
+     ============================================================ -->
+<section class="info-block reverse wrap">
+  <div>
+    <h2>Historie</h2>
+    <p>První písemná zmínka o vesnici pochází z roku 1399. Ve 14. a 15. stol. zde bylo několik malých vladyckých statků. V 16. stol. se z nich staly statky svobodnické. V roce 1586 je připomínán Jan Kamaryt, který kromě dvora Kamarytovského držel dvě další tvrze.
+
+V letech 1869–1979 příslušela osada k obci Němčice, od 1. ledna 1980 spadá jako část obce pod Loket.
+
+V květnu roku 2021 zde, na zahradě rodičů baskytaristy kapely Zrůdný Allen Martina Zelenky zpěvák a kytarista ZA Jan Lebeda slaví narozeniny koncertem kapel Zrůdný Allen a Kanárci, v důsledku čehož druhý kytarista ZA Bedřich Uher pojímá kravský nápad na stejném místě oslavit i svoje narozeniny počátkem září. Rodina Zelenků je nadšena a rodí se Allenfest.
+Během léta je vztyčeno punkové pódium pod důsledným dohledem bubeníka Franka Schůrka, které pojme více hudebníků, než předcházející podlážka z palet a malý nůžkový stan. Finanční ztráty jsou zanedbatelné a jizvy po prodaných ledvinách mizí rychle, a tak se festival opakuje i v roce 2022.</p>
+  </div>
+  <div>
+    <!-- Optional second image for this section, or delete this div
+         and remove "info-block.reverse" grid if you'd rather have
+         a single-column text block. -->
+    <img src="images/historie.jpg" alt="">
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: FOOTER
+     ============================================================ -->
+<footer>
+  <p>Allenfest — Ledeč nad Sázavou</p>
+</footer>
+
+</body>
+</html>
