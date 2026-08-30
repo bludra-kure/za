@@ -90,26 +90,36 @@
     );
   }
 
-  /* ---------- SECTION: POSTER / BANNER ---------- */
+/* ---------- SECTION: POSTER / BANNER ---------- */
+.poster {
+  width: 100%;                 /* mobil: plná šířka */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.poster img {
+  width: 100%;
+  height: auto;                /* zachová poměr stran */
+  max-height: 85vh;            /* dynamicky se přizpůsobí výšce viewportu */
+  object-fit: contain;         /* celý obrázek zůstane viditelný */
+  display: block;
+}
+
+/* Desktop / větší obrazovky */
+@media (min-width: 768px) {
   .poster {
     width: 65%;
-    display: block;
-    alignment: center;
-    margin-left: auto;
-    margin-right: auto;
   }
-  .poster img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .tagline {
-    text-align: center;
-    padding: 28px 20px;
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-  }
+}
+
+.tagline {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
 
   /* ---------- SECTION: BANDS ---------- */
   .bands {
@@ -360,17 +370,17 @@
 <section class="features wrap">
   <div class="feature-grid">
     <div>
-      <img src="images/icon-health.svg" alt="">
+      <img src="images/health.png" alt="">
       <h3>Stoprocentně zdravotně nezávadné</h3>
       <p>S výjimkou náhodných zažívacích obtíží a nervových záchvatů.</p>
     </div>
     <div>
-      <img src="images/icon-sound.svg" alt="">
+      <img src="images/sound.png" alt="">
       <h3>Vysoká kvalita zvuku</h3>
       <p>Ale raději si vemte špunty do uší a dobrý vkus odložte před vstupem.</p>
     </div>
     <div>
-      <img src="images/icon-service.svg" alt="">
+      <img src="images/lightning.png" alt="">
       <h3>Blesková obsluha</h3>
       <p>Pokud nezačne pěnit pivo a obsluha nedostane epileptický záchvat.</p>
     </div>
@@ -530,7 +540,7 @@
        podzimní romantiky za zvuků řízného panku.</p>
   </div>
   <div>
-    <img src="images/pivo.jpg" alt="Pivo">
+    <img src="images/pivo.JPG" alt="Pivo">
   </div>
 </section>
 
@@ -547,7 +557,7 @@
     <!-- Optional second image for this section, or delete this div
          and remove "info-block.reverse" grid if you'd rather have
          a single-column text block. -->
-    <img src="images/vstupne.jpg" alt="">
+    <img src="images/vstupne.JPG" alt="">
   </div>
 </section>
 
@@ -580,26 +590,43 @@ Nemáte-li vůz ani motorku, do blízkého Lokte jezdí autobusy z Prahy, na fes
 </section>
 
 <!-- ============================================================
-     SECTION: HISTORIE
+     SECTION: SPANÍ
      ============================================================ -->
 <section class="info-block reverse wrap">
   <div>
-    <h2>Historie</h2>
-    <p>První písemná zmínka o vesnici pochází z roku 1399. Ve 14. a 15. stol. zde bylo několik malých vladyckých statků. V 16. stol. se z nich staly statky svobodnické. V roce 1586 je připomínán Jan Kamaryt, který kromě dvora Kamarytovského držel dvě další tvrze.
-
-V letech 1869–1979 příslušela osada k obci Němčice, od 1. ledna 1980 spadá jako část obce pod Loket.
-
-V květnu roku 2021 zde, na zahradě rodičů baskytaristy kapely Zrůdný Allen (d8le jen ZA) Martina Zelenky zpěvák a kytarista ZA Jan Lebeda slaví narozeniny koncertem kapel Zrůdný Allen a Kanárci, v důsledku čehož druhý kytarista ZA Bedřich Uher pojímá kravský nápad na stejném místě oslavit i svoje narozeniny počátkem září. Rodina Zelenků je nadšena a rodí se Allenfest.
-Během léta je vztyčeno punkové pódium pod důsledným dohledem bubeníka Franka Schůrka, které pojme více hudebníků, než předcházející podlážka z palet a malý nůžkový stan. Finanční ztráty jsou zanedbatelné a jizvy po prodaných ledvinách mizí rychle, a tak se festival opakuje i v roce 2022.</p>
-<p>
-V následujících letech došlo k několika zásadním zlepšením - například oprava pódia, vyztužení pódia, oprava pódia, další vyztužení pódia, stavba latríny, vyztužení pódia a další oprava pódia.
-</p>
+    <h2>Spaní</h2>
+    <p>
+      V areálu je vyhrazené místo pro stany, je možné spát i v autě.</br>
+      A jestli nechcete tahat stan, můžete ulehnout na pankáče v pivním stanu, nebo u ohně.</br>
+      Pozor! Zářijové noci už bývají poměrně chladné!
+    </p>
   </div>
   <div>
     <!-- Optional second image for this section, or delete this div
          and remove "info-block.reverse" grid if you'd rather have
          a single-column text block. -->
-    <img src="images/historie.jpg" alt="">
+    <img src="images/stan.JPG" alt="">
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: HISTORIE
+     ============================================================ -->
+<section class="info-block wrap">
+  <div>
+    <h2>Historie</h2>
+    <p>
+      První písemná zmínka o vesnici pochází z roku 1399. Ve 14. a 15. stol. zde bylo několik malých vladyckých statků. V 16. stol. se z nich staly statky svobodnické. V roce 1586 je připomínán Jan Kamaryt, který kromě dvora Kamarytovského držel dvě další tvrze. V letech 1869–1979 příslušela osada k obci Němčice, od 1. ledna 1980 spadá jako část obce pod Loket. V květnu roku 2021 zde na zahradě rodičů baskytaristy kapely Zrůdný Allen (dále jen ZA) Martina Zelenky zpěvák a kytarista ZA Jan Lebeda slaví narozeniny koncertem kapel Zrůdný Allen a Kanárci, v důsledku čehož druhý kytarista ZA Bedřich Uher pojímá kravský nápad na stejném místě oslavit i svoje narozeniny počátkem září. Rodina Zelenků je nadšena a rodí se Allenfest. Během léta je vztyčeno punkové pódium pod důsledným dohledem bubeníka Franka Schůrka, které pojme více hudebníků než předcházející podlážka z palet a malý nůžkový stan. Finanční ztráty jsou zanedbatelné a jizvy po prodaných ledvinách mizí rychle, a tak se festival opakuje i v roce 2022.
+    </p>
+    <p>
+      V následujících letech došlo k několika zásadním zlepšením – například opravě pódia, vyztužení pódia, opravě pódia, dalšímu vyztužení pódia, stavbě latríny, vyztužení pódia a další opravě pódia.
+    </p>
+  </div>
+  <div>
+    <!-- Optional second image for this section, or delete this div
+         and remove "info-block.reverse" grid if you'd rather have
+         a single-column text block. -->
+    <img src="images/historie.JPG" alt="">
   </div>
 </section>
 
