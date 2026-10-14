@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Odpočet 20 minut</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 20vh;
+            background-color: #f4f4f9;
+        }
+        #timer {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #333;
+        }
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Odpočet 20 minut</h1>
+    <div id="timer">20:00</div>
+    <button onclick="spustitOdpočet()">Spustit odpočet</button>
+
+    <script>
+        let casovac;
+        let zbyvaSekund = 20 * 60; // 20 minut v sekundách
+
+        function spustitOdpočet() {
+            // Zabrání vícenásobnému spuštění, pokud už běží
+            clearInterval(casovac);
+
+            casovac = setInterval(function () {
+                if (zbyvaSekund <= 0) {
+                    clearInterval(casovac);
+                    document.getElementById("timer").innerText = "00:00";
+                    alert("Čas vypršel!");
+                    return;
+                }
+
+                zbyvaSekund--;
+
+                let minuty = Math.floor(zbyvaSekund / 60);
+                let sekundy = zbyvaSekund % 60;
+
+                // Přidání úvodní nuly, pokud je číslo menší než 10
+                let formatMinut = minuty < 10 ? "0" + minuty : minuty;
+                let formatSekund = sekundy < 10 ? "0" + sekundy : sekundy;
+
+                document.getElementById("timer").innerText = formatMinut + ":" + formatSekund;
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
